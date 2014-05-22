@@ -1,0 +1,6 @@
+/.ackrc
+/.build/
+!/.gitignore
+/.latest
+/Dist-Zilla-Plugin-ModuleBuildTiny-Fallback-*/
+/Dist-Zilla-Plugin-ModuleBuildTiny-Fallback-*.tar.gz
