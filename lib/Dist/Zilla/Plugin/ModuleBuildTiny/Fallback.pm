@@ -132,8 +132,8 @@ When the L<Module::Build> fallback code is run, an added preamble is printed:
 =for stopwords ModuleBuild
 
 This plugin internally calls both the
-L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny]>
-and L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild]> plugins to fetch their
+L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny>
+and L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild> plugins to fetch their
 normal F<Build.PL> file contents, combining them together into the final
 F<Build.PL> for the distribution.
 
@@ -142,8 +142,8 @@ F<Build.PL> for the distribution.
 =head1 CONFIGURATION OPTIONS
 
 None of the configuration options of the
-L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny]>
-or L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild]> plugins are exposed at this time.
+L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny>
+or L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild> plugins are exposed at this time.
 
 =head1 SUPPORT
 

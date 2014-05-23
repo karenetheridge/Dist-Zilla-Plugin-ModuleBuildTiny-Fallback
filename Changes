@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - minor doc fixes
 
 0.001     2014-05-22 07:31:17Z
           - Initial release.
