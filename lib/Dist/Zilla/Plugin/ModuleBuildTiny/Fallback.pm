@@ -54,6 +54,7 @@ sub setup_installer
     my ($mb, $mbt) = $self->plugins;
 
     # let [ModuleBuild] create the Build.PL file and its content
+    $self->log_debug('generating Build.PL content from [ModuleBuild]');
     $mb->setup_installer;
 
     # find the file object it added, save its content, and delete it from the file list
@@ -67,6 +68,7 @@ sub setup_installer
     $mb_content =~ s/^(?!$)/    /mg;
 
     # now let [ModuleBuildTiny] create the Build.PL file and its content
+    $self->log_debug('generating Build.PL content from [ModuleBuildTiny]');
     $mbt->setup_installer;
 
     # find the file object it added, and fold [ModuleBuild]'s content into it
