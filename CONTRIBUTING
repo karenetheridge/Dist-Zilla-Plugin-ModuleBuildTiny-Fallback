@@ -77,7 +77,11 @@ If you have found a bug, but do not have an accompanying patch to fix it, you
 can submit an issue report here:
 https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 or via bug-Dist-Zilla-Plugin-ModuleBuildTiny-Fallback@rt.cpan.org.
-This is a good place to send your questions about the usage of this distribution.
+
+There is also a mailing list available for users of this distribution, at
+http://dzil.org/#mailing-list.
+There is also an irc channel available for users of this distribution, at
+irc://irc.perl.org/#distzilla.
 
 
 This file was generated via Dist::Zilla::Plugin::GenerateFile::ShareDir 0.005 from a

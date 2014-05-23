@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.002     2014-05-23 07:47:57Z
           - minor doc fixes
           - handle some potential future changes to [ModuleBuild],
             [ModuleBuildTiny]

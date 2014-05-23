@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::ModuleBuildTiny::Fallback - Build a Build.PL that uses Modu
 
 # VERSION
 
-version 0.001
+version 0.002
 
 # SYNOPSIS
 
@@ -57,16 +57,16 @@ When the [Module::Build](https://metacpan.org/pod/Module::Build) fallback code i
 > that until you fix your toolchain as described above.
 
 This plugin internally calls both the
-[\[ModuleBuildTiny\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny])
-and [\[ModuleBuild\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuild]) plugins to fetch their
+[\[ModuleBuildTiny\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny)
+and [\[ModuleBuild\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuild) plugins to fetch their
 normal `Build.PL` file contents, combining them together into the final
 `Build.PL` for the distribution.
 
 # CONFIGURATION OPTIONS
 
 None of the configuration options of the
-[\[ModuleBuildTiny\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny])
-or [\[ModuleBuild\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuild]) plugins are exposed at this time.
+[\[ModuleBuildTiny\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny)
+or [\[ModuleBuild\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuild) plugins are exposed at this time.
 
 # SUPPORT
 
