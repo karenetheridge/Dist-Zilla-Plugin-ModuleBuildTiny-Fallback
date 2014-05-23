@@ -8,6 +8,7 @@ use Moose;
 use MooseX::Types;
 use MooseX::Types::Moose 'ArrayRef';
 with
+    'Dist::Zilla::Role::BeforeBuild',
     'Dist::Zilla::Role::BuildPL',
     'Dist::Zilla::Role::PrereqSource';
 
@@ -31,6 +32,14 @@ has plugins => (
     traits => ['Array'],
     handles => { plugins => 'elements' },
 );
+
+sub before_build
+{
+    my $self = shift;
+
+    my @plugins = grep { $_->isa(__PACKAGE__) } @{ $self->zilla->plugins };
+    $self->log_fatal('two [ModuleBuildTiny::Fallback] plugins detected!') if @plugins > 1;
+}
 
 sub register_prereqs
 {
@@ -137,7 +146,7 @@ and L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild> plugins to fetch their
 normal F<Build.PL> file contents, combining them together into the final
 F<Build.PL> for the distribution.
 
-=for Pod::Coverage register_prereqs setup_installer
+=for Pod::Coverage before_build register_prereqs setup_installer
 
 =head1 CONFIGURATION OPTIONS
 
