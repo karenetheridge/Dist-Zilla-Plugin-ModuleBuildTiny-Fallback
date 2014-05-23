@@ -9,12 +9,14 @@ use MooseX::Types;
 use MooseX::Types::Moose 'ArrayRef';
 with
     'Dist::Zilla::Role::BeforeBuild',
+    'Dist::Zilla::Role::FileGatherer',
     'Dist::Zilla::Role::BuildPL',
     'Dist::Zilla::Role::PrereqSource';
 
 use Dist::Zilla::Plugin::ModuleBuild;
 use Dist::Zilla::Plugin::ModuleBuildTiny;
 use List::Util 'first';
+use Scalar::Util 'blessed';
 use namespace::autoclean;
 
 has plugins => (
@@ -41,6 +43,30 @@ sub before_build
     $self->log_fatal('two [ModuleBuildTiny::Fallback] plugins detected!') if @plugins > 1;
 }
 
+my %files;
+
+sub gather_files
+{
+    my $self = shift;
+
+    foreach my $plugin ($self->plugins)
+    {
+        if ($plugin->can('gather_files'))
+        {
+            # if a Build.PL was created, remove it from the file list and save it for later
+            $plugin->gather_files;
+            if (my $build_pl = first { $_->name eq 'Build.PL' } @{ $self->zilla->files })
+            {
+                $self->log_debug('setting aside Build.PL created by ' . blessed($plugin));
+                $files{ blessed $plugin } = $build_pl;
+                $self->zilla->prune_file($build_pl);
+            }
+        }
+    }
+
+    return;
+}
+
 sub register_prereqs
 {
     my $self = shift;
@@ -53,11 +79,13 @@ sub setup_installer
 
     my ($mb, $mbt) = $self->plugins;
 
-    # let [ModuleBuild] create the Build.PL file and its content
+    # let [ModuleBuild] create (or update) the Build.PL file and its content
+    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuild'}) { push @{ $self->zilla->files }, $file }
+
     $self->log_debug('generating Build.PL content from [ModuleBuild]');
     $mb->setup_installer;
 
-    # find the file object it added, save its content, and delete it from the file list
+    # find the file object, save its content, and delete it from the file list
     my $mb_build_pl = first { $_->name eq 'Build.PL' } @{ $self->zilla->files };
     $self->zilla->prune_file($mb_build_pl);
     my $mb_content = $mb_build_pl->content;
@@ -67,11 +95,12 @@ sub setup_installer
     $mb_content =~ s/^use (Module::Build) ([\d.]+);/require $1; $1->VERSION($2);/m;
     $mb_content =~ s/^(?!$)/    /mg;
 
-    # now let [ModuleBuildTiny] create the Build.PL file and its content
+    # now let [ModuleBuildTiny] create (oor update) the Build.PL file and its content
+    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}) { push @{ $self->zilla->files }, $file }
     $self->log_debug('generating Build.PL content from [ModuleBuildTiny]');
     $mbt->setup_installer;
 
-    # find the file object it added, and fold [ModuleBuild]'s content into it
+    # find the file object, and fold [ModuleBuild]'s content into it
     my $mbt_build_pl = first { $_->name eq 'Build.PL' } @{ $self->zilla->files };
     my $mbt_content = $mbt_build_pl->content;
 
@@ -148,7 +177,7 @@ and L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild> plugins to fetch their
 normal F<Build.PL> file contents, combining them together into the final
 F<Build.PL> for the distribution.
 
-=for Pod::Coverage before_build register_prereqs setup_installer
+=for Pod::Coverage before_build gather_files register_prereqs setup_installer
 
 =head1 CONFIGURATION OPTIONS
 
