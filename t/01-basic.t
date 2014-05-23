@@ -37,7 +37,6 @@ cmp_deeply(
         prereqs => superhashof({
             configure => {
                 requires => {
-                    'Module::Build' => ignore,
                     'Module::Build::Tiny' => ignore,
                 },
             },

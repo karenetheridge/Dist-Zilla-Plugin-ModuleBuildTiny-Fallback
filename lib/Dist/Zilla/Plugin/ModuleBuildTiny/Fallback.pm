@@ -70,7 +70,11 @@ sub gather_files
 sub register_prereqs
 {
     my $self = shift;
-    $_->register_prereqs foreach $self->plugins;
+
+    # we don't need MB's configure_requires because if Module::Build runs,
+    # configure_requires wasn't being respected anyway
+    my ($mb, $mbt) = $self->plugins;
+    $mbt->register_prereqs;
 }
 
 sub setup_installer

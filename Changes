@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - skip [ModuleBuild]'s configure_requires declaration, because if
+            Module::Build is running, the prereqs were being ignored anyway
 
 0.002     2014-05-23 07:47:57Z
           - minor doc fixes
