@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::ModuleBuildTiny::Fallback - Build a Build.PL that uses Modu
 
 # VERSION
 
-version 0.002
+version 0.003
 
 # SYNOPSIS
 
