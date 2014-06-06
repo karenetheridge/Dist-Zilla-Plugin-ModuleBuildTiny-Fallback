@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.004     2014-06-06 05:37:01Z
           - add 'mb_version', 'mbt_version' options, for specifying the
             minimum required version of Module::Build and Module::Build::Tiny
 

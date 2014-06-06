@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::ModuleBuildTiny::Fallback - Build a Build.PL that uses Modu
 
 # VERSION
 
-version 0.003
+version 0.004
 
 # SYNOPSIS
 
@@ -64,9 +64,15 @@ normal `Build.PL` file contents, combining them together into the final
 
 # CONFIGURATION OPTIONS
 
-None of the configuration options of the
-[\[ModuleBuildTiny\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny)
-or [\[ModuleBuild\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuild) plugins are exposed at this time.
+## mb\_version
+
+Optional.
+Passed to [\[ModuleBuild\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuild).
+
+## mbt\_version
+
+Optional.
+Passed to [\[ModuleBuildTiny\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny) as `version`.
 
 # SUPPORT
 
