@@ -19,6 +19,10 @@ use List::Util 'first';
 use Scalar::Util 'blessed';
 use namespace::autoclean;
 
+has [qw(mb_version mbt_version)] => (
+    is  => 'ro', isa => 'Str',
+);
+
 has plugins => (
     isa => ArrayRef[role_type('Dist::Zilla::Role::BuildPL')],
     lazy => 1,
@@ -27,8 +31,8 @@ has plugins => (
         my @plugins = @{ $self->zilla->plugins };
         my %args = ( plugin_name => 'ModuleBuildTiny::Fallback', zilla => $self->zilla );
         [
-            Dist::Zilla::Plugin::ModuleBuild->new(%args),
-            Dist::Zilla::Plugin::ModuleBuildTiny->new(%args),
+            Dist::Zilla::Plugin::ModuleBuild->new(%args, $self->mb_version ? ( mb_version => $self->mb_version ) : ()),
+            Dist::Zilla::Plugin::ModuleBuildTiny->new(%args, $self->mbt_version ? ( version => $self->mbt_version ) : ()),
         ]
     },
     traits => ['Array'],
@@ -185,9 +189,15 @@ F<Build.PL> for the distribution.
 
 =head1 CONFIGURATION OPTIONS
 
-None of the configuration options of the
-L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny>
-or L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild> plugins are exposed at this time.
+=head2 mb_version
+
+Optional.
+Passed to L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild>.
+
+=head2 mbt_version
+
+Optional.
+Passed to L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny> as C<version>.
 
 =head1 SUPPORT
 
