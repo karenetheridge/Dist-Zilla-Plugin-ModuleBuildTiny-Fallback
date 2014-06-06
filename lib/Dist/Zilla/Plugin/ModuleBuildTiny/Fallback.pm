@@ -99,7 +99,7 @@ sub setup_installer
     my $mb_content = $mb_build_pl->content;
 
     # comment out the 'use' line; save the required version
-    $mb_content =~ s/This (?:Build.PL|file) /This section was /m;
+    $mb_content =~ s/This (?:Build.PL|file) /This section /m;
     $mb_content =~ s/^use (Module::Build) ([\d.]+);/require $1; $1->VERSION($2);/m;
     $mb_content =~ s/^(?!$)/    /mg;
 
@@ -115,7 +115,7 @@ sub setup_installer
     # comment out the 'use' line; save the required version
     $mbt_content =~ s/^(use Module::Build::Tiny ([\d.]+);)$/# $1/m;
     my $mbt_version = $2;
-    $mbt_content =~ s/This (?:Build.PL|file) /This section was /m;
+    $mbt_content =~ s/This (?:Build.PL|file) /This section /m;
     $mbt_content =~ s/^(?!$)/    /mg;
 
     my $message = join('', <DATA>);
