@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::ModuleBuildTiny::Fallback - Build a Build.PL that uses Modu
 
 # VERSION
 
-version 0.004
+version 0.005
 
 # SYNOPSIS
 
@@ -66,13 +66,15 @@ normal `Build.PL` file contents, combining them together into the final
 
 ## mb\_version
 
-Optional.
-Passed to [\[ModuleBuild\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuild).
+Optional. Specifies the minimum version of [Module::Build](https://metacpan.org/pod/Module::Build) needed for proper
+fallback execution. Defaults to 0.28.
 
 ## mbt\_version
 
 Optional.
-Passed to [\[ModuleBuildTiny\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny) as `version`.
+Passed to [\[ModuleBuildTiny\]](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny) as `version`:
+the minimum version of [Module::Build::Tiny](https://metacpan.org/pod/Module::Build::Tiny) to depend on (in
+`configure_requires` as well as a `use` assertion in `Build.PL`).
 
 # SUPPORT
 
