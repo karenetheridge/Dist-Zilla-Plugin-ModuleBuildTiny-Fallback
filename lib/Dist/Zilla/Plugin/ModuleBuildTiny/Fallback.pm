@@ -19,7 +19,13 @@ use List::Util 'first';
 use Scalar::Util 'blessed';
 use namespace::autoclean;
 
-has [qw(mb_version mbt_version)] => (
+has mb_version => (
+    is  => 'ro', isa => 'Str',
+    # <mst> 0.28 is IIRC when install_base changed incompatibly
+    default => '0.28',
+);
+
+has mbt_version => (
     is  => 'ro', isa => 'Str',
 );
 
@@ -31,7 +37,7 @@ has plugins => (
         my @plugins = @{ $self->zilla->plugins };
         my %args = ( plugin_name => 'ModuleBuildTiny::Fallback', zilla => $self->zilla );
         [
-            Dist::Zilla::Plugin::ModuleBuild->new(%args, $self->mb_version ? ( mb_version => $self->mb_version ) : ()),
+            Dist::Zilla::Plugin::ModuleBuild->new(%args, mb_version => $self->mb_version),
             Dist::Zilla::Plugin::ModuleBuildTiny->new(%args, $self->mbt_version ? ( version => $self->mbt_version ) : ()),
         ]
     },
@@ -191,13 +197,15 @@ F<Build.PL> for the distribution.
 
 =head2 mb_version
 
-Optional.
-Passed to L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild>.
+Optional. Specifies the minimum version of L<Module::Build> needed for proper
+fallback execution. Defaults to 0.28.
 
 =head2 mbt_version
 
 Optional.
-Passed to L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny> as C<version>.
+Passed to L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny> as C<version>:
+the minimum version of L<Module::Build::Tiny> to depend on (in
+C<configure_requires> as well as a C<use> assertion in F<Build.PL>).
 
 =head1 SUPPORT
 

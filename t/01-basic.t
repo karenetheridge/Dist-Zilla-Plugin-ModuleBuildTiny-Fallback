@@ -69,8 +69,8 @@ like(
 
 like(
     $build_pl,
-    qr/^    require Module::Build; Module::Build->VERSION\([\d.]+\);$/m,
-    'use Module::Build statement replaced with require',
+    qr/^\Q    require Module::Build; Module::Build->VERSION(0.28);\E$/m,
+    'use Module::Build statement replaced with require, with our overridden default',
 );
 
 unlike(

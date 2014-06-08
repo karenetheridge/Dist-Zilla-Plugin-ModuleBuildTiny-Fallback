@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - lowered default minimum Module::Build version from 0.3601 to 0.18,
+            to handle more legacy systems; documented the configuration
+            options better
 
 0.004     2014-06-06 05:37:01Z
           - add 'mb_version', 'mbt_version' options, for specifying the
