@@ -3,7 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
 
 0.005     2014-06-08 06:12:39Z
-          - lowered default minimum Module::Build version from 0.3601 to 0.18,
+          - lowered default minimum Module::Build version from 0.3601 to 0.28,
             to handle more legacy systems; documented the configuration
             options better
 
