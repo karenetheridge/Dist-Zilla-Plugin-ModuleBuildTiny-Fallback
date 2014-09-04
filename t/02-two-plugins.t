@@ -27,6 +27,9 @@ like(
     exception { $tzil->build },
     qr/two \[ModuleBuildTiny::Fallback\] plugins detected!/,
     'got right exception',
-) or diag 'saw log messages: ', explain $tzil->log_messages;
+);
+
+diag 'got log messages: ', explain $tzil->log_messages
+    if not Test::Builder->new->is_passing;
 
 done_testing;

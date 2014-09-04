@@ -29,7 +29,7 @@ is(
     exception { $tzil->build },
     undef,
     'build proceeds normally',
-) or diag 'saw log messages: ', explain $tzil->log_messages;
+);
 
 cmp_deeply(
     $tzil->distmeta,
@@ -78,5 +78,8 @@ unlike(
     qr/^use Module::Build/m,
     'no uncommented use statement remains',
 );
+
+diag 'got log messages: ', explain $tzil->log_messages
+    if not Test::Builder->new->is_passing;
 
 done_testing;
