@@ -110,7 +110,7 @@ sub setup_installer
     $mb_content =~ s/^use (Module::Build) ([\d.]+);/require $1; $1->VERSION($2);/m;
     $mb_content =~ s/^(?!$)/    /mg;
 
-    # now let [ModuleBuildTiny] create (oor update) the Build.PL file and its content
+    # now let [ModuleBuildTiny] create (or update) the Build.PL file and its content
     if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}) { push @{ $self->zilla->files }, $file }
     $self->log_debug('generating Build.PL content from [ModuleBuildTiny]');
     $mbt->setup_installer;
