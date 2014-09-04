@@ -7,7 +7,6 @@ use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
 use Test::Deep;
-use Test::Deep::JSON;
 
 my $tzil = Builder->from_config(
     { dist_root => 't/does-not-exist' },
@@ -15,7 +14,6 @@ my $tzil = Builder->from_config(
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
-                [ MetaJSON => ],
                 [ 'ModuleBuildTiny::Fallback' ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
@@ -30,10 +28,9 @@ is(
     'build proceeds normally',
 ) or diag 'saw log messages: ', explain $tzil->log_messages;
 
-my $json = path($tzil->tempdir, qw(build META.json))->slurp_raw;
 cmp_deeply(
-    $json,
-    json(superhashof({
+    $tzil->distmeta,
+    superhashof({
         prereqs => superhashof({
             configure => {
                 requires => {
@@ -41,10 +38,10 @@ cmp_deeply(
                 },
             },
         }),
-    })),
+    }),
     'all prereqs are in place',
 )
-    or diag "got META.json:\n", $json;
+or diag 'got metadata: ', explain $tzil->distmeta;
 
 my $build_pl = $tzil->slurp_file('build/Build.PL');
 unlike($build_pl, qr/[^\S\n]\n/m, 'no trailing whitespace in generated CONTRIBUTING');
