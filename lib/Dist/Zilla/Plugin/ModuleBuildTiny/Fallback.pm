@@ -224,13 +224,10 @@ Peter Rabbitson (ribasushi), for inspiration, and Matt Trout (mst), for not stop
 
 =head1 SEE ALSO
 
-=begin :list
-
+=for :list
 * L<Dist::Zilla::Plugin::MakeMaker::Fallback> (which can happily run alongside this plugin)
 * L<Dist::Zilla::Plugin::ModuleBuildTiny>
 * L<Dist::Zilla::Plugin::ModuleBuild>
-
-=end :list
 
 =cut
 
