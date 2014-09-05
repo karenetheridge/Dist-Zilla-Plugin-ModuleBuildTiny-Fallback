@@ -14,6 +14,7 @@ my $tzil = Builder->from_config(
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
+                [ MetaConfig => ],
                 [ 'ModuleBuildTiny::Fallback' ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
@@ -38,8 +39,36 @@ cmp_deeply(
                 },
             },
         }),
+        x_Dist_Zilla => superhashof({
+            plugins => supersetof(
+                {
+                    class => 'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback',
+                    config => {
+                        'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => {
+                            plugins => [
+                                {
+                                    class => 'Dist::Zilla::Plugin::ModuleBuild',
+                                    config => superhashof({}),
+                                    name => 'ModuleBuildTiny::Fallback',
+                                    version => ignore,
+                                },
+                                {
+                                    class => 'Dist::Zilla::Plugin::ModuleBuildTiny',
+                                    config => superhashof({}),
+                                    name => 'ModuleBuildTiny::Fallback',
+                                    version => ignore,
+                                },
+                            ],
+                        },
+                        'Dist::Zilla::Role::TestRunner' => superhashof({}),
+                    },
+                    name => 'ModuleBuildTiny::Fallback',
+                    version => ignore,
+                },
+            ),
+        }),
     }),
-    'all prereqs are in place',
+    'all prereqs are in place; configs are properly included in metadata',
 )
 or diag 'got metadata: ', explain $tzil->distmeta;
 

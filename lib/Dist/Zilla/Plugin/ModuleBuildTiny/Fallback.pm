@@ -46,6 +46,28 @@ has plugins => (
     handles => { plugins => 'elements' },
 );
 
+around dump_config => sub
+{
+    my ($orig, $self) = @_;
+    my $config = $self->$orig;
+
+    $config->{+__PACKAGE__} = {
+        plugins => [
+            map {
+                my $plugin = $_;
+                my $config = $plugin->dump_config;
+                +{
+                    class   => $plugin->meta->name,
+                    name    => $plugin->plugin_name,
+                    version => $plugin->VERSION,
+                    (keys %$config ? (config => $config) : ()),
+                }
+            } $self->plugins
+        ],
+    };
+
+    return $config;
+};
 sub before_build
 {
     my $self = shift;
