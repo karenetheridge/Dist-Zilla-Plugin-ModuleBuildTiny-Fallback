@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.006     2014-09-06 01:18:50Z
           - now dumping config data for [MetaConfig], including the configs
             used by [ModuleBuild] and [ModuleBuildTiny] (composed by this
             plugin)
