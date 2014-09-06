@@ -36,7 +36,7 @@ has plugins => (
     default => sub {
         my $self = shift;
         my @plugins = @{ $self->zilla->plugins };
-        my %args = ( plugin_name => 'ModuleBuildTiny::Fallback', zilla => $self->zilla );
+        my %args = ( plugin_name => 'ModuleBuildTiny::Fallback', zilla => $self->zilla, default_jobs => $self->default_jobs );
         [
             Dist::Zilla::Plugin::ModuleBuild->new(%args, mb_version => $self->mb_version),
             Dist::Zilla::Plugin::ModuleBuildTiny->new(%args, $self->mbt_version ? ( version => $self->mbt_version ) : ()),
