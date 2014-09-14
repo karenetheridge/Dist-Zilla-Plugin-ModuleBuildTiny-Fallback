@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.007     2014-09-14 01:36:01Z
           - fix breakage caused by unstated assumption that [ModuleBuild] is a
             very recent version
 
