@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix breakage caused by unstated assumption that [ModuleBuild] is a
+            very recent version
 
 0.006     2014-09-06 01:18:50Z
           - now dumping config data for [MetaConfig], including the configs
