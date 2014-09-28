@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.008     2014-09-28 01:59:03Z
           - fix test failure caused by unstated assumption that
             Dist::Zilla::Role::TestRunner is a very recent version
 
