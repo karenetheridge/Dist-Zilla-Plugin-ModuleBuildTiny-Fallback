@@ -46,18 +46,16 @@ cmp_deeply(
                     config => {
                         'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => {
                             plugins => [
-                                {
+                                superhashof({
                                     class => 'Dist::Zilla::Plugin::ModuleBuild',
-                                    config => superhashof({}),
                                     name => 'ModuleBuildTiny::Fallback',
                                     version => ignore,
-                                },
-                                {
+                                }),
+                                superhashof({
                                     class => 'Dist::Zilla::Plugin::ModuleBuildTiny',
-                                    config => superhashof({}),
                                     name => 'ModuleBuildTiny::Fallback',
                                     version => ignore,
-                                },
+                                }),
                             ],
                         },
                         'Dist::Zilla::Role::TestRunner' => superhashof({}),
