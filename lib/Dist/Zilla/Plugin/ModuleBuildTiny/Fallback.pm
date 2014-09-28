@@ -35,7 +35,6 @@ has plugins => (
     lazy => 1,
     default => sub {
         my $self = shift;
-        my @plugins = @{ $self->zilla->plugins };
         my %args = (
             plugin_name => 'ModuleBuildTiny::Fallback',
             zilla => $self->zilla,
