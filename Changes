@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - more fixes as in 0.008 and 0.007
 
 0.008     2014-09-28 01:59:03Z
           - fix test failure caused by unstated assumption that

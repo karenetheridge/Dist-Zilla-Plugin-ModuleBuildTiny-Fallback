@@ -43,7 +43,7 @@ cmp_deeply(
             plugins => supersetof(
                 {
                     class => 'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback',
-                    config => {
+                    config => superhashof({
                         'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => {
                             plugins => [
                                 superhashof({
@@ -58,8 +58,9 @@ cmp_deeply(
                                 }),
                             ],
                         },
-                        'Dist::Zilla::Role::TestRunner' => superhashof({}),
-                    },
+                        # if new enough, we'll also see:
+                        # 'Dist::Zilla::Role::TestRunner' => superhashof({})
+                    }),
                     name => 'ModuleBuildTiny::Fallback',
                     version => ignore,
                 },
