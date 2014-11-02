@@ -126,7 +126,8 @@ sub setup_installer
     $mb->setup_installer;
 
     # find the file object, save its content, and delete it from the file list
-    my $mb_build_pl = first { $_->name eq 'Build.PL' } @{ $self->zilla->files };
+    my $mb_build_pl = $files{'Dist::Zilla::Plugin::ModuleBuild'}
+        || first { $_->name eq 'Build.PL' } @{ $self->zilla->files };
     $self->zilla->prune_file($mb_build_pl);
     my $mb_content = $mb_build_pl->content;
 
@@ -141,7 +142,8 @@ sub setup_installer
     $mbt->setup_installer;
 
     # find the file object, and fold [ModuleBuild]'s content into it
-    my $mbt_build_pl = first { $_->name eq 'Build.PL' } @{ $self->zilla->files };
+    my $mbt_build_pl = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}
+        || first { $_->name eq 'Build.PL' } @{ $self->zilla->files };
     my $mbt_content = $mbt_build_pl->content;
 
     # comment out the 'use' line; save the required version
