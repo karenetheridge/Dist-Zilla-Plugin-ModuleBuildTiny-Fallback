@@ -100,6 +100,10 @@ sub gather_files
         }
     }
 
+    # put the Module::Build::Tiny file back in the file list in case other
+    # plugins want to add to its content
+    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}) { push @{ $self->zilla->files }, $file }
+
     return;
 }
 
@@ -118,6 +122,9 @@ sub setup_installer
     my $self = shift;
 
     my ($mb, $mbt) = $self->plugins;
+
+    # remove the MBT file that we left in since gather_files
+    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}) { $self->zilla->prune_file($file) }
 
     # let [ModuleBuild] create (or update) the Build.PL file and its content
     if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuild'}) { push @{ $self->zilla->files }, $file }
