@@ -72,7 +72,7 @@ cmp_deeply(
 or diag 'got metadata: ', explain $tzil->distmeta;
 
 my $build_pl = $tzil->slurp_file('build/Build.PL');
-unlike($build_pl, qr/[^\S\n]\n/m, 'no trailing whitespace in generated CONTRIBUTING');
+unlike($build_pl, qr/[^\S\n]\n/m, 'no trailing whitespace in generated Build.PL');
 
 like(
     $build_pl,
