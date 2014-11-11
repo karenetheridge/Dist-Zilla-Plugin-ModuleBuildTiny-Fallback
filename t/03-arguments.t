@@ -87,7 +87,7 @@ like(
 
 unlike(
     $build_pl,
-    qr/^use Module::Build/m,
+    qr/^[^#]+use\s+Module::Build/m,
     'no uncommented use statement remains',
 );
 
