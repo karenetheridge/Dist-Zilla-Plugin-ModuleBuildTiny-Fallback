@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - now checks if all configure prereqs are installed, not just
+            Module::Build::Tiny
 
 0.010     2014-11-02 05:47:11Z
           - keep Build.PL in the file list between phases to allow other

@@ -83,11 +83,39 @@ like(
     'header is present',
 );
 
-like(
-    $build_pl,
-    qr/^if \(eval 'use Module::Build::Tiny [\d.]+\; 1'\)/m,
-    'use Module::Build::Tiny statement replaced with eval use',
-);
+SKIP:
+{
+    ok($build_pl =~ /^my %configure_requires = \($/mg, 'found start of %configure_requires declaration')
+        or skip 'failed to test %configure_requires section', 2;
+    my $start = pos($build_pl);
+
+    ok($build_pl =~ /\);$/mg, 'found end of %configure_requires declaration')
+        or skip 'failed to test %configure_requires section', 1;
+    my $end = pos($build_pl);
+
+    my $configure_requires_content = substr($build_pl, $start, $end - $start - 2);
+
+    my %configure_requires = %{ $tzil->distmeta->{prereqs}{configure}{requires} };
+    foreach my $prereq (sort keys %configure_requires)
+    {
+        if ($prereq eq 'perl')
+        {
+            unlike(
+                $configure_requires_content,
+                qr/perl/m,
+                '%configure_requires does not contain perl',
+            );
+        }
+        else
+        {
+            like(
+                $configure_requires_content,
+                qr/$prereq\W+$configure_requires{$prereq}\W/m,
+                "\%configure_requires contains $prereq => $configure_requires{$prereq}",
+            );
+        }
+    }
+}
 
 like(
     $build_pl,
@@ -105,6 +133,18 @@ unlike(
     $build_pl,
     qr/^use Module::Build/m,
     'no uncommented use statement remains',
+);
+
+unlike(
+    $build_pl,
+    qr/^\s*Build_PL/m,
+    'unqualified Build_PL sub is not referenced',
+);
+
+like(
+    $build_pl,
+    qr/^\s*Module::Build::Tiny::Build_PL/m,
+    '...and replaced by fully-namespaced call',
 );
 
 diag 'got log messages: ', explain $tzil->log_messages

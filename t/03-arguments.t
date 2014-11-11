@@ -55,11 +55,23 @@ like(
     'header is present',
 );
 
-like(
-    $build_pl,
-    qr/^if \(eval 'use Module::Build::Tiny 0\.002\; 1'\)/m,
-    'use Module::Build::Tiny statement replaced with eval use',
-);
+SKIP:
+{
+    ok($build_pl =~ /^my %configure_requires = \($/mg, 'found start of %configure_requires declaration')
+        or skip 'failed to test %configure_requires section', 2;
+    my $start = pos($build_pl);
+
+    ok($build_pl =~ /\);$/mg, 'found end of %configure_requires declaration')
+        or skip 'failed to test %configure_requires section', 1;
+    my $end = pos($build_pl);
+
+    my $configure_requires_content = substr($build_pl, $start, $end - $start - 2);
+    like(
+        $build_pl,
+        qr/['"]Module::Build::Tiny['"].*0\.002/,
+        'correct version of Module::Build::Tiny is checked for',
+    );
+}
 
 like(
     $build_pl,
