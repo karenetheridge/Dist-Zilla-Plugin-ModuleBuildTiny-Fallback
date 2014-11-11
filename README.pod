@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::ModuleBuildTiny::Fallback - Build a Build.PL that uses Modu
 
 =head1 VERSION
 
-version 0.010
+version 0.011
 
 =head1 SYNOPSIS
 
@@ -75,6 +75,11 @@ L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny>
 and L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild> plugins to fetch their
 normal F<Build.PL> file contents, combining them together into the final
 F<Build.PL> for the distribution.
+
+You are warned if anything else added content into F<Build.PL> (e.g. some
+additional build-time dependency checks), as that code will not run in the
+fallback case. It is up to you to decide whether it is still a good idea to use
+this plugin in this situation.
 
 =for Pod::Coverage before_build gather_files register_prereqs setup_installer
 
