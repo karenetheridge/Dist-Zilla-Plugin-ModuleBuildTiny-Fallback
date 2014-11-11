@@ -94,7 +94,8 @@ sub gather_files
             if (my $build_pl = first { $_->name eq 'Build.PL' } @{ $self->zilla->files })
             {
                 $self->log_debug('setting aside Build.PL created by ' . blessed($plugin));
-                $files{ blessed $plugin } = $build_pl;
+                $files{ blessed $plugin }{file} = $build_pl;
+                $files{ blessed $plugin }{content} = $build_pl->content;
                 $self->zilla->prune_file($build_pl);
             }
         }
@@ -102,7 +103,7 @@ sub gather_files
 
     # put the Module::Build::Tiny file back in the file list in case other
     # plugins want to add to its content
-    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}) { push @{ $self->zilla->files }, $file }
+    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}{file}) { push @{ $self->zilla->files }, $file }
 
     return;
 }
@@ -124,16 +125,22 @@ sub setup_installer
     my ($mb, $mbt) = $self->plugins;
 
     # remove the MBT file that we left in since gather_files
-    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}) { $self->zilla->prune_file($file) }
+    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}{file})
+    {
+        $self->zilla->prune_file($file);
+
+        $self->log('something else changed the content of the Module::Build::Tiny version of Build.PL -- maybe you should switch back to [ModuleBuildTiny]?')
+            if $file->content ne $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}{content};
+    }
 
     # let [ModuleBuild] create (or update) the Build.PL file and its content
-    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuild'}) { push @{ $self->zilla->files }, $file }
+    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuild'}{file}) { push @{ $self->zilla->files }, $file }
 
     $self->log_debug('generating Build.PL content from [ModuleBuild]');
     $mb->setup_installer;
 
     # find the file object, save its content, and delete it from the file list
-    my $mb_build_pl = $files{'Dist::Zilla::Plugin::ModuleBuild'}
+    my $mb_build_pl = $files{'Dist::Zilla::Plugin::ModuleBuild'}{file}
         || first { $_->name eq 'Build.PL' } @{ $self->zilla->files };
     $self->zilla->prune_file($mb_build_pl);
     my $mb_content = $mb_build_pl->content;
@@ -144,12 +151,12 @@ sub setup_installer
     $mb_content =~ s/^(?!$)/    /mg;
 
     # now let [ModuleBuildTiny] create (or update) the Build.PL file and its content
-    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}) { push @{ $self->zilla->files }, $file }
+    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}{file}) { push @{ $self->zilla->files }, $file }
     $self->log_debug('generating Build.PL content from [ModuleBuildTiny]');
     $mbt->setup_installer;
 
     # find the file object, and fold [ModuleBuild]'s content into it
-    my $mbt_build_pl = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}
+    my $mbt_build_pl = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}{file}
         || first { $_->name eq 'Build.PL' } @{ $self->zilla->files };
     my $mbt_content = $mbt_build_pl->content;
 
@@ -251,6 +258,11 @@ L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny>
 and L<[ModuleBuild]|Dist::Zilla::Plugin::ModuleBuild> plugins to fetch their
 normal F<Build.PL> file contents, combining them together into the final
 F<Build.PL> for the distribution.
+
+You are warned if anything else added content into F<Build.PL> (e.g. some
+additional build-time dependency checks), as that code will not run in the
+fallback case. It is up to you to decide whether it is still a good idea to use
+this plugin in this situation.
 
 =for Pod::Coverage before_build gather_files register_prereqs setup_installer
 

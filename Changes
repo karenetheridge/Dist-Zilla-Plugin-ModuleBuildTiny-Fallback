@@ -3,6 +3,8 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - now checks if all configure prereqs are installed, not just
             Module::Build::Tiny
+          - warn the user if something else added content to Build.PL,
+            which might make it not a good idea to use this plugin
 
 0.010     2014-11-02 05:47:11Z
           - keep Build.PL in the file list between phases to allow other
