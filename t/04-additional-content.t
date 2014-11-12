@@ -17,8 +17,8 @@ my $tzil = Builder->from_config(
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
                 [ MetaConfig => ],
-                [ CheckBin => { command => 'ls' } ],
                 [ 'ModuleBuildTiny::Fallback' ],
+                [ CheckBin => { command => 'ls' } ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
         },

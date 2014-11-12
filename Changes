@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - avoid test failure with older [ModuleBuildTiny]
 
 0.011     2014-11-11 06:45:37Z
           - now checks if all configure prereqs are installed, not just
