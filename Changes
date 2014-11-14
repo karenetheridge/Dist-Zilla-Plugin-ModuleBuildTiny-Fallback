@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - and another (sigh)
 
 0.013     2014-11-14 01:24:36Z
           - avoid more test failures with older [ModuleBuildTiny]
