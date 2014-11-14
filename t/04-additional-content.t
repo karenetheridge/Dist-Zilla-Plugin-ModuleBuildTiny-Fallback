@@ -32,13 +32,17 @@ is(
     'build proceeds normally',
 );
 
-cmp_deeply(
-    $tzil->log_messages,
-    superbagof(
-        '[ModuleBuildTiny::Fallback] something else changed the content of the Module::Build::Tiny version of Build.PL -- maybe you should switch back to [ModuleBuildTiny]?'
-    ),
-    'build warned that some extra content was added to Build.PL, possibly making this plugin inadvisable',
-);
+SKIP: {
+    skip 'older [ModuleBuildTiny] did not create Build.PL beforehand, so other plugins do not have a chance to insert content first', 1
+        if not eval { Dist::Zilla::Plugin::ModuleBuildTiny->VERSION(0.008); 1 };
+    cmp_deeply(
+        $tzil->log_messages,
+        superbagof(
+            '[ModuleBuildTiny::Fallback] something else changed the content of the Module::Build::Tiny version of Build.PL -- maybe you should switch back to [ModuleBuildTiny]?'
+        ),
+        'build warned that some extra content was added to Build.PL, possibly making this plugin inadvisable',
+    );
+}
 
 like(
     $tzil->slurp_file('build/Build.PL'),
