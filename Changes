@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.015     2015-01-24 06:37:33Z
           - remove the noisy "Congratulations!" in Build.PL when the
             installation environment is properly configured
 
