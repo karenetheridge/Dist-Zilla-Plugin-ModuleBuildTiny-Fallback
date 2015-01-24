@@ -198,8 +198,6 @@ my @missing = grep {
 
 if (not @missing)
 {
-    print "Congratulations, your toolchain understands 'configure_requires'!\n\n";
-
 FALLBACK2
     . <<"FALLBACK3"
 $mbt_content}
