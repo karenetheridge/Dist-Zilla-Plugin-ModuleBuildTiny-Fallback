@@ -13,7 +13,6 @@ my $tzil = Builder->from_config(
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
-                [ MetaJSON => ],
                 [ 'ModuleBuildTiny::Fallback' => 'Foo' ],
                 [ 'ModuleBuildTiny::Fallback' => 'Bar' ],
             ),
