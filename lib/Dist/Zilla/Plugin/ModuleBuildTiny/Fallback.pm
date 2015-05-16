@@ -18,6 +18,7 @@ with
 
 use Dist::Zilla::Plugin::ModuleBuild;
 use Dist::Zilla::Plugin::ModuleBuildTiny;
+use Moose::Util 'find_meta';
 use List::Util 'first';
 use Scalar::Util 'blessed';
 use namespace::autoclean;
@@ -62,7 +63,7 @@ around dump_config => sub
                 my $plugin = $_;
                 my $config = $plugin->dump_config;
                 +{
-                    class   => $plugin->meta->name,
+                    class   => find_meta($plugin)->name,
                     name    => $plugin->plugin_name,
                     version => $plugin->VERSION,
                     (keys %$config ? (config => $config) : ()),
