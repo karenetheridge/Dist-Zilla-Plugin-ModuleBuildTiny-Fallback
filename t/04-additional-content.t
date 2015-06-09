@@ -11,7 +11,7 @@ use Test::Deep;
 use Test::Requires { 'Dist::Zilla::Plugin::CheckBin' => '0.004' };
 
 my $tzil = Builder->from_config(
-    { dist_root => 't/does-not-exist' },
+    { dist_root => 'does-not-exist' },
     {
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
