@@ -206,10 +206,13 @@ FALLBACK2
 $mbt_content}
 else
 {
-    \$ENV{PERL_MB_FALLBACK_SILENCE_WARNING} or warn <<'EOW';
+    if (\$ENV{PERL_MB_FALLBACK_SILENCE_WARNING})
+    {
+        warn <<'EOW';
 $message
 EOW
-    sleep 10 if -t STDIN && (-t STDOUT || !(-f STDOUT || -c STDOUT));
+        sleep 10 if -t STDIN && (-t STDOUT || !(-f STDOUT || -c STDOUT));
+    }
 
 $mb_content}
 FALLBACK3

@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 
 {{$NEXT}}
+          - if PERL_MB_FALLBACK_SILENCE_WARNING is set, do not sleep after
+            "showing" the silenced warning
 
 0.015     2015-01-24 06:37:33Z
           - remove the noisy "Congratulations!" in Build.PL when the
