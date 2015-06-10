@@ -3,6 +3,9 @@ Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 {{$NEXT}}
           - if PERL_MB_FALLBACK_SILENCE_WARNING is set, do not sleep after
             "showing" the silenced warning
+          - if another plugin added content at the head of Build.PL, it is
+            preserved at the head when we wrap the remaining content with new
+            code
 
 0.015     2015-01-24 06:37:33Z
           - remove the noisy "Congratulations!" in Build.PL when the
