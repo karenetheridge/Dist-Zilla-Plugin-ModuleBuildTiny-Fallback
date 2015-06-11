@@ -92,21 +92,20 @@ sub gather_files
     {
         if ($plugin->can('gather_files'))
         {
-            # if a Build.PL was created, remove it from the file list and save it for later
+            # if a Build.PL was created, save it and cache its content
             $plugin->gather_files;
             if (my $build_pl = first { $_->name eq 'Build.PL' } @{ $self->zilla->files })
             {
                 $self->log_debug('setting aside Build.PL created by ' . blessed($plugin));
                 $files{ blessed $plugin }{file} = $build_pl;
                 $files{ blessed $plugin }{content} = $build_pl->content;
-                $self->zilla->prune_file($build_pl);
+
+                # we leave the MBT version in place; we will fold our content
+                # into this object later
+                $self->zilla->prune_file($build_pl) if blessed($plugin) eq 'Dist::Zilla::Plugin::ModuleBuild';
             }
         }
     }
-
-    # put the Module::Build::Tiny file back in the file list in case other
-    # plugins want to add to its content
-    if (my $file = $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}{file}) { push @{ $self->zilla->files }, $file }
 
     return;
 }
