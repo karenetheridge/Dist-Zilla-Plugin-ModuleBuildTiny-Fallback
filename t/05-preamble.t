@@ -3,6 +3,13 @@ use warnings;
 
 use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
+
+use Dist::Zilla::Plugin::ModuleBuild;
+use Dist::Zilla::Plugin::ModuleBuildTiny;
+plan skip_all => 'requires a Build.PL-producing plugin to have created the file by munging time'
+    if not Dist::Zilla::Plugin::ModuleBuild->does('Dist::Zilla::Role::FileGatherer')
+    and not Dist::Zilla::Plugin::ModuleBuildTiny->does('Dist::Zilla::Role::FileGatherer');
+
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
