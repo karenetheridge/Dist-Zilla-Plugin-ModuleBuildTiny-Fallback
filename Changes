@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 
-{{$NEXT}}
+0.017     2015-06-11 03:53:35Z
           - fix new test that breaks with older Build.PL-providing plugins
             that did not create Build.PL at file gathering time
 
