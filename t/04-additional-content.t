@@ -16,7 +16,6 @@ my $tzil = Builder->from_config(
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
-                [ MetaConfig => ],
                 [ 'ModuleBuildTiny::Fallback' ],
                 [ CheckBin => { command => 'ls' } ],
             ),
