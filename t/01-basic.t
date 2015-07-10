@@ -45,6 +45,7 @@ cmp_deeply(
                     class => 'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback',
                     config => superhashof({
                         'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => {
+                            mb_version => '0.28',
                             plugins => [
                                 superhashof({
                                     class => 'Dist::Zilla::Plugin::ModuleBuild',

@@ -58,6 +58,8 @@ around dump_config => sub
     my $config = $self->$orig;
 
     $config->{+__PACKAGE__} = {
+        mb_version => $self->mb_version,
+        $self->mbt_version ? ( mbt_version => $self->mbt_version ) : (),
         plugins => [
             map {
                 my $plugin = $_;
