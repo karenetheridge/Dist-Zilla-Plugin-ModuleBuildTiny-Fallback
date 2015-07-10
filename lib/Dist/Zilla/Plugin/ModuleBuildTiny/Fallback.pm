@@ -24,13 +24,13 @@ use Scalar::Util 'blessed';
 use namespace::autoclean;
 
 has mb_version => (
-    is  => 'ro', isa => 'Str',
+    is => 'ro', isa => 'Str',
     # <mst> 0.28 is IIRC when install_base changed incompatibly
     default => '0.28',
 );
 
 has mbt_version => (
-    is  => 'ro', isa => 'Str',
+    is => 'ro', isa => 'Str',
 );
 
 has plugins => (
