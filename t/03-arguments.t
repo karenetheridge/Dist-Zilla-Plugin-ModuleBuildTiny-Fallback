@@ -14,9 +14,11 @@ my $tzil = Builder->from_config(
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
+                [ MetaConfig => ],
                 [ 'ModuleBuildTiny::Fallback' => {
                         mb_version => '0.001',
                         mbt_version => '0.002',
+                        default_jobs => 5,
                     } ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
@@ -40,6 +42,40 @@ cmp_deeply(
                     'Module::Build::Tiny' => '0.002',   # from mbt_version -> version
                 },
             },
+        }),
+        x_Dist_Zilla => superhashof({
+            plugins => supersetof(
+                {
+                    class => 'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback',
+                    config => superhashof({
+                        'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => {
+                            plugins => [
+                                superhashof({
+                                    class => 'Dist::Zilla::Plugin::ModuleBuild',
+                                    name => 'ModuleBuildTiny::Fallback',
+                                    version => Dist::Zilla::Plugin::ModuleBuild->VERSION,
+                                    Dist::Zilla::Plugin::ModuleBuild->can('default_jobs')
+                                        ? ( config => { 'Dist::Zilla::Role::TestRunner' => superhashof({ default_jobs => 5 }) } )
+                                        : ()
+                                }),
+                                superhashof({
+                                    class => 'Dist::Zilla::Plugin::ModuleBuildTiny',
+                                    name => 'ModuleBuildTiny::Fallback',
+                                    version => Dist::Zilla::Plugin::ModuleBuildTiny->VERSION,
+                                    Dist::Zilla::Plugin::ModuleBuildTiny->can('default_jobs')
+                                        ? ( config => { 'Dist::Zilla::Role::TestRunner' => superhashof({ default_jobs => 5 }) } )
+                                        : ()
+                                }),
+                            ],
+                        },
+                        Dist::Zilla::Plugin::ModuleBuildTiny::Fallback->can('default_jobs')
+                            ? ( 'Dist::Zilla::Role::TestRunner' => superhashof({ default_jobs => 5 }) )
+                            : ()
+                    }),
+                    name => 'ModuleBuildTiny::Fallback',
+                    version => ignore,
+                }
+            ),
         }),
     }),
     'all prereqs are in place',
