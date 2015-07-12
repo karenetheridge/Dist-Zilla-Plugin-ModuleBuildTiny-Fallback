@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 
 {{$NEXT}}
+          - pass all extra options along to [ModuleBuild] and
+            [ModuleBuildTiny], not just default_jobs
 
 0.017     2015-06-11 03:53:35Z
           - fix new test that breaks with older Build.PL-providing plugins

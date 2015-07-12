@@ -33,14 +33,23 @@ has mbt_version => (
     is => 'ro', isa => 'Str',
 );
 
+has _extra_args => (
+    isa => 'HashRef',
+    lazy => 1,
+    default => sub { +{} },
+    traits => ['Hash'],
+    handles => { _extra_args => 'elements' },
+);
+
 has plugins => (
     isa => ArrayRef[role_type('Dist::Zilla::Role::BuildPL')],
+    init_arg => undef,
     lazy => 1,
     default => sub {
         my $self = shift;
         my %args = (
             zilla => $self->zilla,
-            $self->can('default_jobs') ? ( default_jobs => $self->default_jobs ) : (),
+            $self->_extra_args,
         );
         [
             Dist::Zilla::Plugin::ModuleBuild->new(
@@ -58,6 +67,22 @@ has plugins => (
     traits => ['Array'],
     handles => { plugins => 'elements' },
 );
+
+around BUILDARGS => sub
+{
+    my $orig = shift;
+    my $self = shift;
+
+    my $args = $self->$orig(@_);
+
+    my %extra_args = %$args;
+    delete @extra_args{qw(version mb_version mbt_version zilla plugin_name)};
+
+    return +{
+        %$args,
+        _extra_args => \%extra_args,
+    };
+};
 
 around dump_config => sub
 {

@@ -19,6 +19,8 @@ my $tzil = Builder->from_config(
                         mb_version => '0.001',
                         mbt_version => '0.002',
                         default_jobs => 5,
+                        minimum_perl => '5.010',
+                        mb_class => 'Foo::Bar',
                     } ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
@@ -83,6 +85,21 @@ cmp_deeply(
     'all prereqs are in place',
 )
     or diag 'got metadata: ', explain $tzil->distmeta;
+
+my ($mb, $mbt) = $tzil->plugin_named('ModuleBuildTiny::Fallback')->plugins;
+is($mb->mb_version, '0.001', '[ModuleBuild] was passed the "mb_version" argument as "mb_version"');
+is($mb->mb_class, 'Foo::Bar', '[ModuleBuild] was passed the "mb_class" argument');
+is($mbt->version, '0.002', '[ModuleBuildTiny] was passed the "mbt_version" argument as "version"');
+SKIP: {
+    if ($mbt->can('minimum_perl'))
+    {
+        is($mbt->minimum_perl, '5.010', '[ModuleBuildTiny] was passed the "minimum_perl" argument');
+    }
+    else
+    {
+        skip '[ModuleBuildTiny] is too old to know "minimum_perl"', 1;
+    }
+}
 
 my $build_pl = $tzil->slurp_file('build/Build.PL');
 unlike($build_pl, qr/[^\S\n]\n/m, 'no trailing whitespace in generated CONTRIBUTING');
