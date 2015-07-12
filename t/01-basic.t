@@ -49,12 +49,12 @@ cmp_deeply(
                             plugins => [
                                 superhashof({
                                     class => 'Dist::Zilla::Plugin::ModuleBuild',
-                                    name => 'ModuleBuildTiny::Fallback',
+                                    name => 'ModuleBuild, via ModuleBuildTiny::Fallback',
                                     version => Dist::Zilla::Plugin::ModuleBuild->VERSION,
                                 }),
                                 superhashof({
                                     class => 'Dist::Zilla::Plugin::ModuleBuildTiny',
-                                    name => 'ModuleBuildTiny::Fallback',
+                                    name => 'ModuleBuildTiny, via ModuleBuildTiny::Fallback',
                                     version => Dist::Zilla::Plugin::ModuleBuildTiny->VERSION,
                                 }),
                             ],

@@ -39,13 +39,20 @@ has plugins => (
     default => sub {
         my $self = shift;
         my %args = (
-            plugin_name => 'ModuleBuildTiny::Fallback',
             zilla => $self->zilla,
             $self->can('default_jobs') ? ( default_jobs => $self->default_jobs ) : (),
         );
         [
-            Dist::Zilla::Plugin::ModuleBuild->new(%args, mb_version => $self->mb_version),
-            Dist::Zilla::Plugin::ModuleBuildTiny->new(%args, $self->mbt_version ? ( version => $self->mbt_version ) : ()),
+            Dist::Zilla::Plugin::ModuleBuild->new(
+                plugin_name => 'ModuleBuild, via ModuleBuildTiny::Fallback',
+                %args,
+                mb_version => $self->mb_version,
+            ),
+            Dist::Zilla::Plugin::ModuleBuildTiny->new(
+                plugin_name => 'ModuleBuildTiny, via ModuleBuildTiny::Fallback',
+                %args,
+                $self->mbt_version ? ( version => $self->mbt_version ) : (),
+            ),
         ]
     },
     traits => ['Array'],

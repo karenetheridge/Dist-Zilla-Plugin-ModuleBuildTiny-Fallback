@@ -54,7 +54,7 @@ cmp_deeply(
                             plugins => [
                                 superhashof({
                                     class => 'Dist::Zilla::Plugin::ModuleBuild',
-                                    name => 'ModuleBuildTiny::Fallback',
+                                    name => 'ModuleBuild, via ModuleBuildTiny::Fallback',
                                     version => Dist::Zilla::Plugin::ModuleBuild->VERSION,
                                     Dist::Zilla::Plugin::ModuleBuild->can('default_jobs')
                                         ? ( config => { 'Dist::Zilla::Role::TestRunner' => superhashof({ default_jobs => 5 }) } )
@@ -62,7 +62,7 @@ cmp_deeply(
                                 }),
                                 superhashof({
                                     class => 'Dist::Zilla::Plugin::ModuleBuildTiny',
-                                    name => 'ModuleBuildTiny::Fallback',
+                                    name => 'ModuleBuildTiny, via ModuleBuildTiny::Fallback',
                                     version => Dist::Zilla::Plugin::ModuleBuildTiny->VERSION,
                                     Dist::Zilla::Plugin::ModuleBuildTiny->can('default_jobs')
                                         ? ( config => { 'Dist::Zilla::Role::TestRunner' => superhashof({ default_jobs => 5 }) } )
