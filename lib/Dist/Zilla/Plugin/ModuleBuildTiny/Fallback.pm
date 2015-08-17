@@ -284,15 +284,15 @@ the contents of F<META.yml> or F<META.json>.
 
 When the L<Module::Build> fallback code is run, an added preamble is printed:
 
-=over 4
-
 =for stopwords cpanminus
 
 =for comment This section was inserted from the DATA section at build time
 
+=begin :verbatim
+
 {{ $DATA }}
 
-=back
+=end :verbatim
 
 =for stopwords ModuleBuild
 
