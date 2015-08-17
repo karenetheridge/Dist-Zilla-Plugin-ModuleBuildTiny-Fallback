@@ -3,6 +3,8 @@ Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 {{$NEXT}}
           - fixed formatting of quoted Build.PL by marking a verbatim section,
             rather than simply indenting by 4 columns
+          - fixed the inverted check of PERL_MB_FALLBACK_SILENCE_WARNING
+            (broken since 0.016)
 
 0.018     2015-07-12 22:45:04Z
           - pass all extra options along to [ModuleBuild] and

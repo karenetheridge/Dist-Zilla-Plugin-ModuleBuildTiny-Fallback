@@ -246,7 +246,7 @@ FALLBACK2
 $mbt_content}
 else
 {
-    if (\$ENV{PERL_MB_FALLBACK_SILENCE_WARNING})
+    if (not \$ENV{PERL_MB_FALLBACK_SILENCE_WARNING})
     {
         warn <<'EOW';
 $message
