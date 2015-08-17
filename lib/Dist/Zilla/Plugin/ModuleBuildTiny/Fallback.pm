@@ -104,6 +104,7 @@ around dump_config => sub
                 }
             } $self->plugins
         ],
+        blessed($self) ne __PACKAGE__ ? ( version => $VERSION ) : (),
     };
 
     return $config;
