@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 
 {{$NEXT}}
+          - use TODO around tests that fail on perl 5.8.x due to the buggy
+            handling of qr/...$/m
 
 0.019     2015-08-18 01:05:07Z
           - fixed formatting of quoted Build.PL by marking a verbatim section,
