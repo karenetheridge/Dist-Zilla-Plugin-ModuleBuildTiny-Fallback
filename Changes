@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 
-{{$NEXT}}
+0.020     2015-08-20 01:08:45Z
           - use TODO around tests that fail on perl 5.8.x due to the buggy
             handling of qr/...$/m
 
