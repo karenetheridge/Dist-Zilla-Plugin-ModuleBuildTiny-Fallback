@@ -73,7 +73,7 @@ cmp_deeply(
 or diag 'got metadata: ', explain $tzil->distmeta;
 
 my $build_pl = $tzil->slurp_file('build/Build.PL');
-unlike($build_pl, qr/[^\S\n]\n/m, 'no trailing whitespace in generated Build.PL');
+unlike($build_pl, qr/[^\S\n]\n/, 'no trailing whitespace in generated Build.PL');
 
 my $preamble = join('', <*Dist::Zilla::Plugin::ModuleBuildTiny::Fallback::DATA>);
 like($build_pl, qr/\Q$preamble\E/ms, 'preamble is found in Build.PL');
