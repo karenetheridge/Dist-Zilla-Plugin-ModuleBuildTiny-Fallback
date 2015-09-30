@@ -324,14 +324,6 @@ Passed to L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny> as C<version
 the minimum version of L<Module::Build::Tiny> to depend on (in
 C<configure_requires> as well as a C<use> assertion in F<Build.PL>).
 
-=head1 SUPPORT
-
-=for stopwords irc
-
-Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-ModuleBuildTiny-Fallback>
-(or L<bug-Dist-Zilla-Plugin-ModuleBuildTiny-Fallback@rt.cpan.org|mailto:bug-Dist-Zilla-Plugin-ModuleBuildTiny-Fallback@rt.cpan.org>).
-I am also usually active on irc, as 'ether' at C<irc.perl.org>.
-
 =head1 ACKNOWLEDGEMENTS
 
 =for stopwords Rabbitson ribasushi mst
