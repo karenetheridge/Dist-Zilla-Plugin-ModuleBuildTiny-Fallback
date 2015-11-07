@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::Plugin::ModuleBuildTiny::Fallback;
-# ABSTRACT: Build a Build.PL that uses Module::Build::Tiny, falling back to Module::Build as needed
+# ABSTRACT: Generate a Build.PL that uses Module::Build::Tiny, falling back to Module::Build as needed
 # KEYWORDS: plugin installer Module::Build Build.PL toolchain legacy ancient backcompat
 # vim: set ts=8 sts=4 sw=4 tw=115 et :
 
