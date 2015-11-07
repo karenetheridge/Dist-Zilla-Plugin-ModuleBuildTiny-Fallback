@@ -242,20 +242,21 @@ my @missing = grep {
 if (not @missing)
 {
 FALLBACK2
-    . <<"FALLBACK3"
-$mbt_content}
+    . $mbt_content . "}\n"
+    . <<'FALLBACK3'
 else
 {
-    if (not \$ENV{PERL_MB_FALLBACK_SILENCE_WARNING})
+    if (not $ENV{PERL_MB_FALLBACK_SILENCE_WARNING})
     {
         warn <<'EOW';
-$message
+FALLBACK3
+    . $message . <<'FALLBACK4'
 EOW
         sleep 10 if -t STDIN && (-t STDOUT || !(-f STDOUT || -c STDOUT));
     }
 
-$mb_content}
-FALLBACK3
+FALLBACK4
+    .  $mb_content . "}\n"
     );
 
     return;
