@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 
-{{$NEXT}}
+0.021     2015-11-07 07:28:46Z
           - when Module::Build runs instead of Module::Build::Tiny, now
           capturing all errors (from MBT or other configure prerequisites)
           and printing them
