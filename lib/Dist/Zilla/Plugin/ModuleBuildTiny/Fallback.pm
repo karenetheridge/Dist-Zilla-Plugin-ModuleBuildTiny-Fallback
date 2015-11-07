@@ -235,11 +235,12 @@ FALLBACK1
     . <<'FALLBACK2'
 );
 
-my @missing = grep {
-    ! eval "require $_; $_->VERSION($configure_requires{$_}); 1"
+my %errors = map {
+    eval "require $_; $_->VERSION($configure_requires{$_}); 1";
+    $_ => $@,
 } keys %configure_requires;
 
-if (not @missing)
+if (!grep { $_ } values %errors)
 {
 FALLBACK2
     . $mbt_content . "}\n"
@@ -248,10 +249,17 @@ else
 {
     if (not $ENV{PERL_MB_FALLBACK_SILENCE_WARNING})
     {
-        warn <<'EOW';
+        warn <<'EOW'
 FALLBACK3
     . $message . <<'FALLBACK4'
+
+
+Errors from configure prereqs:
 EOW
+        . do {
+            require Data::Dumper; Data::Dumper->new([ \%errors ])->Indent(2)->Terse(1)->Sortkeys(1)->Dump;
+        };
+
         sleep 10 if -t STDIN && (-t STDOUT || !(-f STDOUT || -c STDOUT));
     }
 

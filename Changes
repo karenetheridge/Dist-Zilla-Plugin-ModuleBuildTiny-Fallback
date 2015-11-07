@@ -1,6 +1,9 @@
 Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 
 {{$NEXT}}
+          - when Module::Build runs instead of Module::Build::Tiny, now
+          capturing all errors (from MBT or other configure prerequisites)
+          and printing them
 
 0.020     2015-08-20 01:08:45Z
           - use TODO around tests that fail on perl 5.8.x due to the buggy
