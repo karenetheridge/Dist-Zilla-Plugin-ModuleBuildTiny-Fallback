@@ -8,14 +8,14 @@ package Dist::Zilla::Plugin::ModuleBuildTiny::Fallback;
 our $VERSION = '0.021';
 
 use Moose;
-use MooseX::Types;
-use MooseX::Types::Moose 'ArrayRef';
 with
     'Dist::Zilla::Role::BeforeBuild',
     'Dist::Zilla::Role::FileGatherer',
     'Dist::Zilla::Role::BuildPL',
     'Dist::Zilla::Role::PrereqSource';
 
+use MooseX::Types;
+use MooseX::Types::Moose 'ArrayRef';
 use Dist::Zilla::Plugin::ModuleBuild;
 use Dist::Zilla::Plugin::ModuleBuildTiny;
 use Moose::Util 'find_meta';
