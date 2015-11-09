@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 
-{{$NEXT}}
+0.022     2015-11-09 04:19:35Z
           - be more tolerant in regexp of text produced by Data::Dumper
           (in test added in 0.021)
 
