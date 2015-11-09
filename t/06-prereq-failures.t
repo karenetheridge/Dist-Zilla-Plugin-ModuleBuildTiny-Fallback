@@ -91,7 +91,7 @@ subtest 'run the generated test' => sub
 
     cmp_deeply(
         \@warnings,
-        [ re(qr/^Errors from configure prereqs:\n\{\n\s+'Acme::EtherSaysThisWillNeverExist' => 'Can\\'t locate .+\n',\n\s+'Module::Build::Tiny' => ''\n\}\n/m) ],
+        [ re(qr/^Errors from configure prereqs:\n\s*\{\n\s+'Acme::EtherSaysThisWillNeverExist' => 'Can\\'t locate .+\n',\n\s+'Module::Build::Tiny' => ''\n\s*\}\n/m) ],
         'correctly captured errors from configure-requires and dumped them',
     )
     or diag 'got warnings: ', explain \@warnings;
