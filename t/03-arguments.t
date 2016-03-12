@@ -134,14 +134,14 @@ like(
     'use Module::Build::Tiny statement commented out',
 );
 
-{
-local $TODO = 'qr/...$/m does not work before perl 5.010' if "$]" < '5.010';
+# qr/...$/m does not work before perl 5.010
+my $empty = "$]" < '5.010' ? qr/.{0}/ : '';
+
 like(
     $build_pl,
-    qr/^    require Module::Build; Module::Build->VERSION\(0\.001\);$/m,
+    qr/^    require Module::Build; Module::Build->VERSION\(0\.001\);$empty$/m,
     'use Module::Build statement replaced with require',
 );
-}
 
 unlike(
     $build_pl,
