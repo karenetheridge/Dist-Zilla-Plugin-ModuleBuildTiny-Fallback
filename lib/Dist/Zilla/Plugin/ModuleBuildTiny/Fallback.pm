@@ -166,7 +166,7 @@ sub setup_installer
     {
         $self->zilla->prune_file($file);
 
-        $self->log('something else changed the content of the Module::Build::Tiny version of Build.PL -- maybe you should switch back to [ModuleBuildTiny]?')
+        $self->log([ 'something else changed the content of the Module::Build::Tiny version of Build.PL -- maybe you should switch back to [ModuleBuildTiny]? (%s)', $file->added_by ])
             if $file->content ne $files{'Dist::Zilla::Plugin::ModuleBuildTiny'}{content};
     }
 

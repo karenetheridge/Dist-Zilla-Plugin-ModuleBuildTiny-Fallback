@@ -40,7 +40,7 @@ SKIP: {
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            '[ModuleBuildTiny::Fallback] something else changed the content of the Module::Build::Tiny version of Build.PL -- maybe you should switch back to [ModuleBuildTiny]?'
+            re(qr/\Q[ModuleBuildTiny::Fallback] something else changed the content of the Module::Build::Tiny version of Build.PL -- maybe you should switch back to [ModuleBuildTiny]?\E \(.*ModuleBuildTiny, via ModuleBuildTiny::Fallback/),
         ),
         'build warned that some extra content was added to Build.PL, possibly making this plugin inadvisable',
     );
