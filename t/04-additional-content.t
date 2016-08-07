@@ -8,7 +8,7 @@ use Test::Fatal;
 use Path::Tiny;
 use Test::Deep;
 
-use Test::Requires { 'Dist::Zilla::Plugin::CheckBin' => '0.004' };
+use Test::Needs { 'Dist::Zilla::Plugin::CheckBin' => '0.004' };
 
 my $tzil = Builder->from_config(
     { dist_root => 'does-not-exist' },
