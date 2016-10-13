@@ -85,7 +85,7 @@ subtest 'run the generated test' => sub
 {
     my $wd = pushd $build_dir;
 
-    my @warnings = warnings { do 'Build.PL' };
+    my @warnings = warnings { do './Build.PL' };
     note 'ran tests successfully' if not $@;
     fail($@) if $@;
 

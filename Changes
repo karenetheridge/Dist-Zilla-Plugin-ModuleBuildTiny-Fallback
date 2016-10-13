@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 
 {{$NEXT}}
+          - fix test to not rely on . in @INC
 
 0.023     2016-03-13 00:12:36Z
           - provide more information when failing due to something else having
