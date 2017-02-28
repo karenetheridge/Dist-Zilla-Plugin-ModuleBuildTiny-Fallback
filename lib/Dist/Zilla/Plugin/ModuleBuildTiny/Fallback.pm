@@ -5,7 +5,7 @@ package Dist::Zilla::Plugin::ModuleBuildTiny::Fallback;
 # ABSTRACT: Generate a Build.PL that uses Module::Build::Tiny, falling back to Module::Build as needed
 # KEYWORDS: plugin installer Module::Build Build.PL toolchain legacy ancient backcompat
 
-our $VERSION = '0.024';
+our $VERSION = '0.025';
 
 use Moose;
 with
