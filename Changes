@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-Plugin-ModuleBuildTiny-Fallback
 
 {{$NEXT}}
+          - fix test failure that occurs in combination with a particular
+            version of Log::Dispatch (due to loading Devel::Confess)
 
 0.024     2017-02-28 02:54:46Z
           - fix test to not rely on . in @INC
