@@ -351,9 +351,9 @@ Peter Rabbitson (ribasushi), for inspiration, and Matt Trout (mst), for not stop
 __DATA__
 *** WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING ***
 
-If you're seeing this warning, your toolchain is really, really old* and you'll
-almost certainly have problems installing CPAN modules from this century. But
-never fear, dear user, for we have the technology to fix this!
+If you're seeing this warning, your toolchain is really, really old* and
+you'll almost certainly have problems installing CPAN modules from this
+century. But never fear, dear user, for we have the technology to fix this!
 
 If you're using CPAN.pm to install things, then you can upgrade it using:
 
@@ -371,9 +371,9 @@ Gang, the irc.perl.org #toolchain IRC channel, and the number 42.
 
 ----
 
-* Alternatively, you are running this file manually, in which case you need
-to learn to first fulfill all configure requires prerequisites listed in
-META.yml or META.json -- or use a cpan client to install this distribution.
+* Alternatively, you are running this file manually, in which case you need to
+learn to first fulfill all configure requires prerequisites listed in META.yml
+or META.json -- or use a cpan client to install this distribution.
 
 You can also silence this warning for future installations by setting the
 PERL_MB_FALLBACK_SILENCE_WARNING environment variable, but please don't do
