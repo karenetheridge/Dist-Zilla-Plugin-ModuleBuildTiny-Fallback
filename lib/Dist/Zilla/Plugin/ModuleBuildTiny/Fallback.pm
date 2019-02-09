@@ -14,8 +14,7 @@ with
     'Dist::Zilla::Role::BuildPL',
     'Dist::Zilla::Role::PrereqSource';
 
-use MooseX::Types;
-use MooseX::Types::Moose 'ArrayRef';
+use Types::Standard qw(Str HashRef ArrayRef ConsumerOf);
 use Dist::Zilla::Plugin::ModuleBuild;
 use Dist::Zilla::Plugin::ModuleBuildTiny;
 use Moose::Util 'find_meta';
@@ -24,17 +23,17 @@ use Scalar::Util 'blessed';
 use namespace::autoclean;
 
 has mb_version => (
-    is => 'ro', isa => 'Str',
+    is => 'ro', isa => Str,
     # <mst> 0.28 is IIRC when install_base changed incompatibly
     default => '0.28',
 );
 
 has mbt_version => (
-    is => 'ro', isa => 'Str',
+    is => 'ro', isa => Str,
 );
 
 has _extra_args => (
-    isa => 'HashRef',
+    isa => HashRef,
     lazy => 1,
     default => sub { +{} },
     traits => ['Hash'],
@@ -42,7 +41,7 @@ has _extra_args => (
 );
 
 has plugins => (
-    isa => ArrayRef[role_type('Dist::Zilla::Role::BuildPL')],
+    isa => ArrayRef[ConsumerOf['Dist::Zilla::Role::BuildPL']],
     init_arg => undef,
     lazy => 1,
     default => sub {
