@@ -134,8 +134,8 @@ sub gather_files
                 $files{ blessed $plugin }{file} = $build_pl;
                 $files{ blessed $plugin }{content} = $build_pl->content;
 
-                # we leave the MBT version in place; we will fold our content
-                # into this object later
+                # we leave MBT's version of Build.PL in place; we will fold all additional content (and
+                # Module::Build's code)into this object later
                 $self->zilla->prune_file($build_pl) if blessed($plugin) eq 'Dist::Zilla::Plugin::ModuleBuild';
             }
         }
