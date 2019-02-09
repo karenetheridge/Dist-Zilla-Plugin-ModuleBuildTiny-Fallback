@@ -113,7 +113,7 @@ sub before_build
 {
     my $self = shift;
 
-    my @plugins = grep { $_->isa(__PACKAGE__) } @{ $self->zilla->plugins };
+    my @plugins = grep $_->isa(__PACKAGE__), @{ $self->zilla->plugins };
     $self->log_fatal('two [ModuleBuildTiny::Fallback] plugins detected!') if @plugins > 1;
 }
 
@@ -217,7 +217,7 @@ sub setup_installer
 
     # prereq specifications don't always provide exact versions - we just weed
     # those out for now, as this shouldn't occur that frequently.
-    delete @{$configure_requires}{ grep { not version::is_strict($configure_requires->{$_}) } keys %$configure_requires };
+    delete @{$configure_requires}{ grep !version::is_strict($configure_requires->{$_}), keys %$configure_requires };
 
     $mbt_build_pl->content(
         ( defined $preamble ? $preamble : '' )
@@ -229,9 +229,9 @@ use warnings;
 
 my %configure_requires = (
 FALLBACK1
-    . join('', map {
-            "    '$_' => '$configure_requires->{$_}',\n"
-        } sort keys %$configure_requires)
+    . join('', map
+            "    '$_' => '$configure_requires->{$_}',\n",
+            sort keys %$configure_requires)
     . <<'FALLBACK2'
 );
 
@@ -240,7 +240,7 @@ my %errors = map {
     $_ => $@,
 } keys %configure_requires;
 
-if (!grep { $_ } values %errors)
+if (!grep $_, values %errors)
 {
 FALLBACK2
     . $mbt_content . "}\n"
