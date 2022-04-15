@@ -18,7 +18,7 @@ use Types::Standard qw(Str HashRef ArrayRef ConsumerOf);
 use Dist::Zilla::Plugin::ModuleBuild;
 use Dist::Zilla::Plugin::ModuleBuildTiny;
 use Moose::Util 'find_meta';
-use List::Util 'first';
+use List::Keywords 'first';
 use Scalar::Util 'blessed';
 use namespace::autoclean;
 
