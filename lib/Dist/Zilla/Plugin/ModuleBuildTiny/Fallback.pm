@@ -10,6 +10,7 @@ our $VERSION = '0.026';
 use Moose;
 with
     'Dist::Zilla::Role::BeforeBuild',
+    'Dist::Zilla::Role::AfterBuild',
     'Dist::Zilla::Role::FileGatherer',
     'Dist::Zilla::Role::BuildPL',
     'Dist::Zilla::Role::PrereqSource';
@@ -18,8 +19,9 @@ use Types::Standard qw(Str HashRef ArrayRef ConsumerOf);
 use Dist::Zilla::Plugin::ModuleBuild;
 use Dist::Zilla::Plugin::ModuleBuildTiny;
 use Moose::Util 'find_meta';
-use List::Keywords 'first';
+use List::Keywords qw(first any);
 use Scalar::Util 'blessed';
+use Path::Tiny;
 use namespace::autoclean;
 
 has mb_version => (
@@ -152,6 +154,14 @@ sub register_prereqs
     # configure_requires wasn't being respected anyway
     my ($mb, $mbt) = $self->plugins;
     $mbt->register_prereqs;
+}
+
+sub after_build {
+  my $self = shift;
+
+  $self->log('share/ files present: did you forget to include [ShareDir]?')
+    if any { path('share')->subsumes($_->name) } @{ $self->zilla->files }
+      and not @{ $self->zilla->plugins_with(-ShareDir) };
 }
 
 sub setup_installer
@@ -316,7 +326,7 @@ additional build-time dependency checks), as that code will not run in the
 fallback case. It is up to you to decide whether it is still a good idea to use
 this plugin in this situation.
 
-=for Pod::Coverage before_build gather_files register_prereqs setup_installer
+=for Pod::Coverage before_build gather_files register_prereqs after_build setup_installer
 
 =head1 CONFIGURATION OPTIONS
 
