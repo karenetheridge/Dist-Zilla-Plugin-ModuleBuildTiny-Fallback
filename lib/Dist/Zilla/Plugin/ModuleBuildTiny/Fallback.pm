@@ -19,7 +19,7 @@ use Types::Standard qw(Str HashRef ArrayRef ConsumerOf);
 use Dist::Zilla::Plugin::ModuleBuild;
 use Dist::Zilla::Plugin::ModuleBuildTiny;
 use Moose::Util 'find_meta';
-use List::Keywords qw(first any);
+use List::Util 1.33 qw(first any);
 use Scalar::Util 'blessed';
 use Path::Tiny;
 use namespace::autoclean;
